@@ -28,6 +28,10 @@ curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/miniku
 # skupper
 curl https://skupper.io/install.sh | sh
 
+# flux
+# trickery with install.sh to install in ~/.local/bin without sudo...
+curl -s https://fluxcd.io/install.sh |  (echo "sudo() { \n\$*\n }"; grep -v bash) | bash -s ~/.local/bin
+
 # certmanger cmctl
 OS=linux
 ARCH=amd64

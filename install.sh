@@ -28,6 +28,11 @@ curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/miniku
 # skupper
 curl https://skupper.io/install.sh | sh
 
+# kubeseal
+VER=0.19.0
+wget https://github.com/bitnami-labs/sealed-secrets/releases/download/v$VER/kubeseal-$VER-linux-amd64.tar.gz &&
+   tar -xvzf kubeseal-$VER-linux-amd64.tar.gz kubeseal && mv kubeseal ~/.local/bin && rm kubeseal-$VER-linux-amd64.tar.gz
+
 # flux
 # trickery with install.sh to install in ~/.local/bin without sudo...
 curl -s https://fluxcd.io/install.sh |  (echo "sudo() { \n\$*\n }"; grep -v bash) | bash -s ~/.local/bin

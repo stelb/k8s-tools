@@ -35,7 +35,11 @@ wget https://github.com/bitnami-labs/sealed-secrets/releases/download/v$VER/kube
 
 # kubeval
 wget https://github.com/instrumenta/kubeval/releases/latest/download/kubeval-linux-amd64.tar.gz && \
-  tar xf kubeval-linux-amd64.tar.gz && mv kubeval ~/.local/bin && rm kubeval-linux-amd64.tar.gz
+  tar xf kubeval-linux-amd64.tar.gz kubeval && mv kubeval ~/.local/bin && rm kubeval*
+
+# polaris
+wget https://github.com/FairwindsOps/polaris/releases/latest/download/polaris_linux_amd64.tar.gz && \
+	tar -xvzf polaris_linux_amd64.tar.gz polaris && mv polaris ~/.local/bin && rm polaris*
 
 # flux
 # trickery with install.sh to install in ~/.local/bin without sudo...

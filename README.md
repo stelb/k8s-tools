@@ -12,5 +12,6 @@ All tools asre installed in ~/.local/bin, no root required
   * polaris
   * flux
   * certmanager cmctl
+  * olm operator-sdk
   * pgo (crunchydata postgres operator)
   * cnp (cloud native postgres operator by edb)

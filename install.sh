@@ -98,6 +98,9 @@ tgz https://github.com/cert-manager/cert-manager/releases/latest/download/cmctl-
 #
 ###
 
+# olm operator-sdk
+bin https://github.com/operator-framework/operator-sdk/releases/download/v1.24.1/operator-sdk_linux_amd64 operator-sdk
+
 # crunchydata pgo
 bin https://github.com/crunchydata/postgres-operator/releases/latest/download/pgo pgo
 

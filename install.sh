@@ -1,9 +1,53 @@
+#!/bin/bash
+
+download() {
+	# url
+	url=$1
+	curl -fsSLO $url
+}
+
+tgz() {
+	# url file(s)
+	url=$1; shift
+	files=$*
+	tgz=$(basename $url)
+
+	TMP=$(mktemp -d)
+	cd $TMP
+
+	download $url &&
+		tar zxvf $tgz $files &&
+		mv $files ~/.local/bin &&
+
+	cd -
+	rm -rf $TMP
+}
+
+bin() {
+	# url file(s)
+	url=$1; shift
+	name=$1
+	bin=$(basename $url)
+
+	TMP=$(mktemp -d)
+	cd $TMP
+
+	download $url &&
+		mv $bin ~/.local/bin/${name} &&
+		chmod a+x ~/.local/bin/${name}
+
+	cd -
+	rm -rf $TMP
+}
+
 ###
 #
 # kubectl plugins
 #
 ###
 
+
+#tgz https://github.com/kubernetes-sigs/krew/releases/latest/download/krew-linux_amd64.tar.gz ./krew-linux_amd64
 # krew
 (
   set -x; cd "$(mktemp -d)" &&
@@ -22,49 +66,40 @@
 ###
 
 # minikube
-curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 \
-  && mv minikube ~/.local/bin && chmod +x ~/.local/bin/minikube
+bin https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 minikube
 
 # kind
-curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.16.0/kind-linux-amd64 && \
-	chmod +x ./kind && mv ./kind ~/.local/bin/kind
+bin https://kind.sigs.k8s.io/dl/v0.16.0/kind-linux-amd64 kind
 
 # skupper
 curl https://skupper.io/install.sh | sh
 
 # kubeseal
 VER=0.19.0
-wget https://github.com/bitnami-labs/sealed-secrets/releases/download/v$VER/kubeseal-$VER-linux-amd64.tar.gz &&
-   tar -xvzf kubeseal-$VER-linux-amd64.tar.gz kubeseal && mv kubeseal ~/.local/bin && rm kubeseal-$VER-linux-amd64.tar.gz
+tgz https://github.com/bitnami-labs/sealed-secrets/releases/download/v$VER/kubeseal-$VER-linux-amd64.tar.gz kubeseal
 
 # kubeval
-wget https://github.com/instrumenta/kubeval/releases/latest/download/kubeval-linux-amd64.tar.gz && \
-  tar xf kubeval-linux-amd64.tar.gz kubeval && mv kubeval ~/.local/bin && rm kubeval*
+tgz https://github.com/instrumenta/kubeval/releases/latest/download/kubeval-linux-amd64.tar.gz kubeval
 
 # polaris
-wget https://github.com/FairwindsOps/polaris/releases/latest/download/polaris_linux_amd64.tar.gz && \
-	tar -xvzf polaris_linux_amd64.tar.gz polaris && mv polaris ~/.local/bin && rm polaris*
+tgz https://github.com/FairwindsOps/polaris/releases/latest/download/polaris_linux_amd64.tar.gz polaris
 
 # flux
 # trickery with install.sh to install in ~/.local/bin without sudo...
 curl -s https://fluxcd.io/install.sh |  (echo "sudo() { \n\$*\n }"; grep -v bash) | bash -s ~/.local/bin
 
 # certmanger cmctl
-OS=linux
-ARCH=amd64
-curl -sSL -o cmctl.tar.gz https://github.com/cert-manager/cert-manager/releases/latest/download/cmctl-$OS-$ARCH.tar.gz && \
-	tar xzf cmctl.tar.gz cmctl && mv cmctl ~/.local/bin && rm cmctl.tar.gz
+tgz https://github.com/cert-manager/cert-manager/releases/latest/download/cmctl-linux-amd64.tar.gz cmctl
 
 
 ###
 #
 # Operator Tools
+#
 ###
 
 # crunchydata pgo
-#curl -fsSLO https://github.com/CrunchyData/postgres-operator/releases/download/v4.7.7/pgo && mv pgo ~/.local/bin
-curl -fsSLO https://github.com/crunchydata/postgres-operator/releases/latest/download/pgo && mv pgo ~/.local/bin
-chmod a+x ~/.local/bin/pgo
+bin https://github.com/crunchydata/postgres-operator/releases/latest/download/pgo pgo
 
 # edb cnp
 curl -sSfL \

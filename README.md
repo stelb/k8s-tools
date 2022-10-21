@@ -6,6 +6,7 @@ All tools asre installed in ~/.local/bin, no root required
 
   * minikube
   * skupper
+  * kubeseal
   * kubeval
   * polaris
   * flux

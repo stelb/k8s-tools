@@ -25,6 +25,10 @@
 curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 \
   && mv minikube ~/.local/bin && chmod +x ~/.local/bin/minikube
 
+# kind
+curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.16.0/kind-linux-amd64 && \
+	chmod +x ./kind && mv ./kind ~/.local/bin/kind
+
 # skupper
 curl https://skupper.io/install.sh | sh
 

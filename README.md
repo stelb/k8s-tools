@@ -5,6 +5,7 @@ mostly latest version (kubeseal has no latest)
 All tools asre installed in ~/.local/bin, no root required
 
   * minikube
+  * kind
   * skupper
   * kubeseal
   * kubeval

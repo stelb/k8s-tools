@@ -13,11 +13,11 @@ tgz() {
 	tgz=$(basename $url)
 
 	case tgz in
-		*gz)
+		*.*gz)
 			tf=z ;;
 		*.*bz*)
 			tf=j ;;
-		*.**xz)
+		*.*xz)
 			tf=J ;;
 	esac
 
@@ -86,6 +86,9 @@ bin https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
 
 # kind
 bin https://kind.sigs.k8s.io/dl/v0.16.0/kind-linux-amd64 kind
+
+# k3d
+bin https://github.com/k3d-io/k3d/releases/latest/download/k3d-linux-amd64 k3d
 
 # minishift (openshift 3)
 VER=$(latest minishift/minishift)

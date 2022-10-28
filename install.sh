@@ -12,11 +12,22 @@ tgz() {
 	files=$*
 	tgz=$(basename $url)
 
+	case tgz in
+		*gz)
+			tf=z ;;
+		*.*bz*)
+			tf=j ;;
+		*.**xz)
+			tf=J ;;
+	esac
+
+
 	TMP=$(mktemp -d)
 	cd $TMP
 
+
 	download $url &&
-		tar zxvf $tgz $files &&
+		tar ${tf}xvf $tgz $files &&
 		mv $files ~/.local/bin &&
 
 	cd -
@@ -76,9 +87,13 @@ bin https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
 # kind
 bin https://kind.sigs.k8s.io/dl/v0.16.0/kind-linux-amd64 kind
 
-# minishift
+# minishift (openshift 3)
 VER=$(latest minishift/minishift)
 tgz https://github.com/minishift/minishift/releases/download/${VER}/minishift-${VER}-linux-amd64.tgz minishift-${VER}-linux-amd64/minishift
+
+# crc (openshift 4)
+VER=$(latest code-ready/crc)
+tgz https://developers.redhat.com/content-gateway/file/pub/openshift-v4/clients/crc/${VER}/crc-linux-amd64.tar.xz crc-linux-${VER}-amd64/crc
 
 # skupper
 curl https://skupper.io/install.sh | sh

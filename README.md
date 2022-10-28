@@ -4,9 +4,13 @@ mostly latest version (kubeseal has no latest)
 
 All tools asre installed in ~/.local/bin, no root required
 
+# k8s on laptop/workstation
   * minikube
   * kind
-  * minishift
+  * minishift (openshift 3)
+  * crc (openshift 4)
+
+# other tools
   * skupper
   * kubeseal
   * kubeval

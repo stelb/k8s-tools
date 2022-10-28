@@ -6,13 +6,13 @@ download() {
 	curl -fsSLO $url
 }
 
-tgz() {
+tar() {
 	# url file(s)
-	url=$1; shift
+	tar=$1; shift
 	files=$*
 	tgz=$(basename $url)
 
-	case tgz in
+	case $tar in
 		*.*gz)
 			tf=z ;;
 		*.*bz*)
@@ -92,31 +92,31 @@ bin https://github.com/k3d-io/k3d/releases/latest/download/k3d-linux-amd64 k3d
 
 # minishift (openshift 3)
 VER=$(latest minishift/minishift)
-tgz https://github.com/minishift/minishift/releases/download/${VER}/minishift-${VER}-linux-amd64.tgz minishift-${VER}-linux-amd64/minishift
+tar https://github.com/minishift/minishift/releases/download/${VER}/minishift-${VER}-linux-amd64.tgz minishift-${VER}-linux-amd64/minishift
 
 # crc (openshift 4)
 VER=$(latest code-ready/crc)
-tgz https://developers.redhat.com/content-gateway/file/pub/openshift-v4/clients/crc/${VER}/crc-linux-amd64.tar.xz crc-linux-${VER}-amd64/crc
+tar https://developers.redhat.com/content-gateway/file/pub/openshift-v4/clients/crc/${VER}/crc-linux-amd64.tar.xz crc-linux-${VER}-amd64/crc
 
 # skupper
 curl https://skupper.io/install.sh | sh
 
 # kubeseal
 VER=$(latest bitnami-labs/sealed-secrets)
-tgz https://github.com/bitnami-labs/sealed-secrets/releases/download/v${VER}/kubeseal-${VER}-linux-amd64.tar.gz kubeseal
+tar https://github.com/bitnami-labs/sealed-secrets/releases/download/v${VER}/kubeseal-${VER}-linux-amd64.tar.gz kubeseal
 
 # kubeval
-tgz https://github.com/instrumenta/kubeval/releases/latest/download/kubeval-linux-amd64.tar.gz kubeval
+tar https://github.com/instrumenta/kubeval/releases/latest/download/kubeval-linux-amd64.tar.gz kubeval
 
 # polaris
-tgz https://github.com/FairwindsOps/polaris/releases/latest/download/polaris_linux_amd64.tar.gz polaris
+tar https://github.com/FairwindsOps/polaris/releases/latest/download/polaris_linux_amd64.tar.gz polaris
 
 # flux
 # trickery with install.sh to install in ~/.local/bin without sudo...
 curl -s https://fluxcd.io/install.sh |  (echo "sudo() { \n\$*\n }"; grep -v bash) | bash -s ~/.local/bin
 
 # certmanger cmctl
-tgz https://github.com/cert-manager/cert-manager/releases/latest/download/cmctl-linux-amd64.tar.gz cmctl
+tar https://github.com/cert-manager/cert-manager/releases/latest/download/cmctl-linux-amd64.tar.gz cmctl
 
 
 ###
@@ -138,4 +138,4 @@ curl -sSfL \
 
 # velero
 VER=$(latest vmware-tanzu/velero)
-tgz https://github.com/vmware-tanzu/velero/releases/download/v${VER}/velero-v${VER}-linux-amd64.tar.gz velero-v${VER}-linux-amd64/velero
+tar https://github.com/vmware-tanzu/velero/releases/download/v${VER}/velero-v${VER}-linux-amd64.tar.gz velero-v${VER}-linux-amd64/velero

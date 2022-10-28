@@ -117,3 +117,7 @@ bin https://github.com/crunchydata/postgres-operator/releases/latest/download/pg
 curl -sSfL \
   https://github.com/EnterpriseDB/kubectl-cnp/raw/main/install.sh | \
   sh -s -- -b ~/.local/bin
+
+# velero
+VER=$(latest vmware-tanzu/velero)
+tgz https://github.com/vmware-tanzu/velero/releases/download/v${VER}/velero-v${VER}-linux-amd64.tar.gz velero-v${VER}-linux-amd64/velero

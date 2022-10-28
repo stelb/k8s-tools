@@ -1,8 +1,8 @@
 # Install some k8s tools
 
-mostly latest version (kubeseal has no latest)
+mostly latest version
 
-All tools asre installed in ~/.local/bin, no root required
+All tools asre installed in ~/.local/bin, no root required (tools themself might require root)
 
 # k8s on laptop/workstation
   * minikube
@@ -12,6 +12,7 @@ All tools asre installed in ~/.local/bin, no root required
   * crc (openshift 4)
 
 # other tools
+  * krew
   * skupper
   * kubeseal
   * kubeval

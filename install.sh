@@ -40,6 +40,11 @@ bin() {
 	rm -rf $TMP
 }
 
+latest() {
+	ghrepo=$1
+	curl -sIL https://github.com/${ghrepo}/releases/latest/download/  | grep location: | cut -d ' ' -f 2 | sed -e 's#.*/v##' | tr -d '\r'
+}
+
 ###
 #
 # kubectl plugins
@@ -71,12 +76,16 @@ bin https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
 # kind
 bin https://kind.sigs.k8s.io/dl/v0.16.0/kind-linux-amd64 kind
 
+# minishift
+VER=$(latest minishift/minishift)
+tgz https://github.com/minishift/minishift/releases/download/${VER}/minishift-${VER}-linux-amd64.tgz minishift-${VER}-linux-amd64/minishift
+
 # skupper
 curl https://skupper.io/install.sh | sh
 
 # kubeseal
-VER=0.19.0
-tgz https://github.com/bitnami-labs/sealed-secrets/releases/download/v$VER/kubeseal-$VER-linux-amd64.tar.gz kubeseal
+VER=$(latest bitnami-labs/sealed-secrets)
+tgz https://github.com/bitnami-labs/sealed-secrets/releases/download/v${VER}/kubeseal-${VER}-linux-amd64.tar.gz kubeseal
 
 # kubeval
 tgz https://github.com/instrumenta/kubeval/releases/latest/download/kubeval-linux-amd64.tar.gz kubeval

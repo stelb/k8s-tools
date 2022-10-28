@@ -2,7 +2,7 @@
 
 mostly latest version
 
-All tools asre installed in ~/.local/bin, no root required
+All tools asre installed in ~/.local/bin, no root required (tools themself might require root)
 
 # k8s on laptop/workstation
   * minikube

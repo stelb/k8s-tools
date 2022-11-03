@@ -6,9 +6,9 @@ download() {
 	curl -fsSLO $url
 }
 
-tar() {
+tarx() {
 	# url file(s)
-	tar=$1; shift
+	url=$1; shift
 	files=$*
 	tgz=$(basename $url)
 
@@ -92,31 +92,35 @@ bin https://github.com/k3d-io/k3d/releases/latest/download/k3d-linux-amd64 k3d
 
 # minishift (openshift 3)
 VER=$(latest minishift/minishift)
-tar https://github.com/minishift/minishift/releases/download/${VER}/minishift-${VER}-linux-amd64.tgz minishift-${VER}-linux-amd64/minishift
+tarx https://github.com/minishift/minishift/releases/download/${VER}/minishift-${VER}-linux-amd64.tgz minishift-${VER}-linux-amd64/minishift
 
 # crc (openshift 4)
 VER=$(latest code-ready/crc)
-tar https://developers.redhat.com/content-gateway/file/pub/openshift-v4/clients/crc/${VER}/crc-linux-amd64.tar.xz crc-linux-${VER}-amd64/crc
+tarx https://developers.redhat.com/content-gateway/file/pub/openshift-v4/clients/crc/${VER}/crc-linux-amd64.tar.xz crc-linux-${VER}-amd64/crc
 
 # skupper
 curl https://skupper.io/install.sh | sh
 
 # kubeseal
 VER=$(latest bitnami-labs/sealed-secrets)
-tar https://github.com/bitnami-labs/sealed-secrets/releases/download/v${VER}/kubeseal-${VER}-linux-amd64.tar.gz kubeseal
+tarx https://github.com/bitnami-labs/sealed-secrets/releases/download/v${VER}/kubeseal-${VER}-linux-amd64.tar.gz kubeseal
 
 # kubeval
-tar https://github.com/instrumenta/kubeval/releases/latest/download/kubeval-linux-amd64.tar.gz kubeval
+tarx https://github.com/instrumenta/kubeval/releases/latest/download/kubeval-linux-amd64.tar.gz kubeval
 
 # polaris
-tar https://github.com/FairwindsOps/polaris/releases/latest/download/polaris_linux_amd64.tar.gz polaris
+tarx https://github.com/FairwindsOps/polaris/releases/latest/download/polaris_linux_amd64.tar.gz polaris
 
 # flux
 # trickery with install.sh to install in ~/.local/bin without sudo...
 curl -s https://fluxcd.io/install.sh |  (echo "sudo() { \n\$*\n }"; grep -v bash) | bash -s ~/.local/bin
 
 # certmanger cmctl
-tar https://github.com/cert-manager/cert-manager/releases/latest/download/cmctl-linux-amd64.tar.gz cmctl
+tarx https://github.com/cert-manager/cert-manager/releases/latest/download/cmctl-linux-amd64.tar.gz cmctl
+
+# gator (gatekeeper)
+VER=$(latest open-policy-agent/gatekeeper)
+tarx https://github.com/open-policy-agent/gatekeeper/releases/download/v${VER}/gator-v${VER}-linux-amd64.tar.gz gator
 
 
 ###
@@ -133,9 +137,9 @@ bin https://github.com/crunchydata/postgres-operator/releases/latest/download/pg
 
 # edb cnp
 curl -sSfL \
-  https://github.com/EnterpriseDB/kubectl-cnp/raw/main/install.sh | \
-  sh -s -- -b ~/.local/bin
+	https://github.com/EnterpriseDB/kubectl-cnp/raw/main/install.sh | \
+	sh -s -- -b ~/.local/bin
 
 # velero
 VER=$(latest vmware-tanzu/velero)
-tar https://github.com/vmware-tanzu/velero/releases/download/v${VER}/velero-v${VER}-linux-amd64.tar.gz velero-v${VER}-linux-amd64/velero
+tarx https://github.com/vmware-tanzu/velero/releases/download/v${VER}/velero-v${VER}-linux-amd64.tar.gz velero-v${VER}-linux-amd64/velero
